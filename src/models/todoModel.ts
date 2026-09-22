@@ -5,6 +5,13 @@ export const TodoModel = {
         const [rows] = await pool.query('SELECT * FROM todos WHERE user_id = ?', [userId]);
         return rows;
     },
+    countByUserId: async (userId: number) => {
+    const [rows]: any = await pool.query(
+      'SELECT COUNT(*) AS total FROM todos WHERE user_id = ?',
+      [userId]
+    );
+    return rows[0].total as number;
+  },
     getById: async (id: number, userId: number) => {
         const [rows]: any = await pool.query(
             'SELECT * FROM todos WHERE id = ? AND user_id = ?',
